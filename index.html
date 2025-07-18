@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Forget Less, Solve More: Sequential Fine-Tuning with Adapter Shrinking for Math Word Problem Solving.">
+  <meta name="keywords" content="SeqFT, PLRS, Math Word Problems, MATH Dataset, Curriculum Learning, LoRA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forget Less, Solve More: SeqFT with PLRS</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="./index.html">
+        <span class="icon"><i class="fas fa-home"></i></span>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1">Forget Less, Solve More</h1>
+          <h2 class="subtitle is-4">Sequential Fine-Tuning with Adapter Shrinking for Math Word Problem Solving</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Gauri Toshniwal<sup>1</sup>,</span>
+            <span class="author-block">S R Balasundaram<sup>1
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>National Institute of Technology, Tiruchirappalli</span>
+          </div>
+
+          <div class="publication-links mt-4">
+            <a href="./paper.pdf" class="button is-dark is-rounded">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>Paper</span>
+            </a>
+            <a href="https://github.com/gadmin7/mwp_ai4math_icml/tree/main" class="button is-dark is-rounded">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code</span>
+            </a>
+            <!-- <a href="./slides.pdf" class="button is-dark is-rounded">
+              <span class="icon"><i class="far fa-images"></i></span>
+              <span>Slides</span>
+            </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This work investigates a human-inspired sequential fine-tuning (SeqFT) method to 
+        improve the performance of resource-constrained large language models (LLMs) on math word 
+        problems. Instead of training on the entire dataset simultaneously, models are exposed to progressively 
+        harder tasks level by level, while earlier data is periodically reintroduced to mitigate catastrophic 
+        forgetting. In addition, a strategy called Progressive LoRA Rank Shrinking (PLRS) is proposed, which 
+        progressively reduces the LoRA rank at each stage to prevent the overwriting of parameters learned in 
+        earlier levels. Evaluations on the MATH dataset demonstrate that this approach consistently outperforms 
+        both parameter efficient fine-tuning and naive multi-level training, yielding up to a 2%-7% improvement in 
+        exact match accuracy. The study presents the effect of (1) repeated data exposure, (2) difficulty based task 
+        ordering via SeqFT, and (3) PLRS. An analysis of problem-solving trajectories further reveals that 
+        PLRS facilitates retention of earlier skills in a multi-stage setup. These findings suggest that, beyond 
+        conventional data augmentation, carefully designed training schedules can significantly enhance math 
+        problem-solving capabilities in LLMs.
+      </p>
+    </div>
+    <br>
+    <!-- Diagram Section -->
+    <h2 class="title is-3">Method Diagram</h2>
+    <div class="container is-max-desktop has-text-centered">
+      <figure class="image is-3by1">
+        <img src="./static/images/icml_math_plrs.png" alt="SeqFT with PLRS Method Diagram">
+      </figure>
+      <p class="content has-text-centered">
+        A high-level overview of our pipeline: curriculum sequencing (levels 1 to 5), replay of previous data,
+        and progressive shrinking of LoRA adapter ranks to isolate capacity and prevent forgetting.
+      </p>
+    </div>
+    <br>
+    <h2 class="title is-3">Results</h2>
+    <div class="content has-text-justified">
+      <p>
+        On the MATH benchmark, PLRS outperforms direct LoRA training by +4.5% EM on LLaMA-1B and yields
+        gains of +2–7% across models (0.5B–3B). Error-bucket analysis shows PLRS reduces forgetting (lost)
+        and increases recovered and newly solved items.
+      </p>
+    </div>
+    <div class="container is-max-desktop">
+      <div class="columns is-variable is-6 is-vcentered">
+        
+        <!-- Left Column: Full Image -->
+        <div class="column is-half">
+          <figure class="image">
+            <img src="./static/images/icml_results.png" alt="Result Image 1">
+            <figcaption class="mt-2 has-text-centered">EM improvement on Baseline 6 compared to Baseline 1.</figcaption>
+          </figure>
+        </div>
+
+        <!-- Right Column: Shorter Image + Text below it -->
+        <div class="column is-half is-flex is-flex-direction-column is-justify-content-flex-start">
+          <figure class="image">
+            <img src="./static/images/icml_results_llama1b.png" alt="Result Image 2">
+            <figcaption class="mt-2 has-text-centered"></figcaption>
+          </figure>
+          <div class="content has-text-justified">
+            <p>
+              Above table shows final ablations for LLaMA 3.2 1B. Notably, replay alone (SFR + fixed rank) can drop performance to
+              12.38%, even below direct Baseline 1 (15.86%). Combining replay with rank shrinking yields 17.22%, and one final
+              tweak no rank shrink at Level-5 raises accuracy to 20.32%.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container is-max-desktop has-text-centered">
+        <figure class="image is-4by1">
+          <img src="./static/images/icml_error_buckets.png" alt="Error Buckets">
+        </figure>
+        <p class="content has-text-centered">
+          Beyond raw accuracy, our error trajectory analysis reveals that the combination of replay and PLRS does more than
+preserve prior skills it actively enhances them, demonstrating positive backward transfer
+        </p>
+      </div>
+
+</div>
+  </div>
+
+
+
+</section>
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p></p>
+  </div>
+</footer>
+
+</body>
+</html>
